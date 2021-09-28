@@ -21,44 +21,49 @@ def start(update, context):
 def button(update: Update, context: CallbackContext) -> None:
     """Parses the CallbackQuery and updates the message text."""
     query = update.callback_query
+    chat_id=update.effective_chat.id
 
     # CallbackQueries need to be answered, even if no notification to the user is needed
     query.answer()
 
     if query.data == 'noname' :
         return addname(update, context)
+    context.bot.sendMessage(chat_id, text = 'لطفا پیام خود را وارد کنید :')
 
-    chat_id=update.effective_chat.id
-    return message(chat_id, context)
 def addname(update, context):
     """Send a message when the command /adname is issued."""
     chat_id=update.effective_chat.id
-    context.bot.send_message(chat_id,text = 'نام و نام خانوادگی خود را وارد کنید :')
+    context.bot.send_message(chat_id, text = 'لطفا نام و پیام خود را وارد کنید :')
 
 def echo(update, context):
     """Echo the user message."""
     name = update.message.text
-    op = open('Answer/intro.txt', 'a')
-    op.write(name+'\n')
+    op = open('Answer/message.txt', 'a')
+    op.write(name+'\n\n\t\t******************************************************************************************************************************************************************\t\t\n\n')
     op.close()
     # reply meesage for save name is complete
-    update.message.reply_text('نام شما با موفقیت ثبت شد.')
-    chat_id=update.effective_chat.id
-    return message(chat_id, context)
-
-def message(chat_id, context):
-    '''Thanks Message fo user '''
-    context.bot.send_message(chat_id,text = ''' «اینکه پذیرای نظرات شما همکاران عزیز باشیم باعث خوشحالی و افتخار ماست...
-در خدمتیم :)» ''')
+    update.message.reply_text('اطلاعات شما با موفقیت ثبت شد.')
 
 def sendfile(update, context):
     """Send a message when the command /sendfile is issued."""
     chat_id = update.effective_chat.id
-    op = open('Answer/intro.txt', 'rb')
-    doc = op.read()
-    context.bot.sendDocument(chat_id, doc, filename = 'intro-name-list',  timeout=3000)
-    op.close()
-
+    # find Password
+    password = update.message.text
+    password = password.split(' ')
+    #import pdb;pdb.set_trace()
+    if len(password)-1  == 1 :
+        password = password[1]
+        # check password 
+        if password == config.password :
+            op = open('Answer/message.txt', 'rb')
+            doc = op.read()
+            context.bot.sendDocument(chat_id, doc, filename = 'message.txt',  timeout = 50000)
+            op.close()
+            return
+        context.bot.sendMessage(chat_id, text = 'رمز عبور نادرست است')
+        return
+    context.bot.sendMessage(chat_id, text = 'رمز عبور را وارد کنید')
+    return
 # ------------------------Command------------------------ #
 
 start_command = CommandHandler('start',start)
