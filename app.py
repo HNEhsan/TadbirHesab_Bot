@@ -28,12 +28,12 @@ def button(update: Update, context: CallbackContext) -> None:
 
     if query.data == 'noname' :
         return addname(update, context)
-    context.bot.sendMessage(chat_id, text = 'لطفا پیام خود را وارد کنید :')
+    context.bot.sendMessage(chat_id, text = '''«اینکه پذیرای نظرات شما همکاران عزیز باشیم باعث خوشحالی و افتخار ماست... در خدمتیم :)»''')
 
 def addname(update, context):
     """Send a message when the command /adname is issued."""
     chat_id=update.effective_chat.id
-    context.bot.send_message(chat_id, text = 'لطفا نام و پیام خود را وارد کنید :')
+    context.bot.send_message(chat_id, text = ' لطفا نام خودرا نیز وارد کنید«اینکه پذیرای نظرات شما همکاران عزیز باشیم باعث خوشحالی و افتخار ماست... در خدمتیم :)»')
 
 def echo(update, context):
     """Echo the user message."""

@@ -1,7 +1,7 @@
-# UserName: @Tadbir_Hesab_bot
+# UserName: @@TadbirHesab_bot
 
 # Bot_Id :
-token = '1959869156:AAELkc3A91CtiSWclONq8aqOd4w3HZrbgCo'
+token = ''
 # Password for send message.txt
 password = 'Admin1234'
 
